@@ -1,30 +1,44 @@
 
-const fs =require("fs")
-const addPerson=(id,fname,lname,city,age)=>{
-
+const fs =require("fs");
+const addPerson=(id,fname,lname,city,age,grades)=>{
     const allData=loadDate()
      
      const duplicatedData=allData.filter((obj)=>{
-        return obj.id=== id
+        return obj.id=== id;
+        
      })
-     console.log(duplicatedData)
-        if(duplicatedData.length==0){
+    //  console.log(duplicatedData)
+        if(duplicatedData.length==0 ){
+             total = 0;
+             average=0;
+             if(grades.length==6 ){               
+                    total =grades.reduce(function(acc,current){
+                          return acc+current
+                    },0)
+                    average=total/6;
+              
         allData.push({
             id:id,
             fname:fname,
             lname:lname,
             city:city,
             age:age,
+            total:total,
+           average:average
 
         })
         saveAllData(allData)
         console.log("Data saved successfully")
      }
+
+     else{
+        console.log("Please enter 6 degress")
+     }
+    }
      else{
         console.log("error duplicated id")
      }
 }
-
 const loadDate=()=>{
     try{
     const dataJson=fs.readFileSync("studentData.json").toString()
@@ -74,9 +88,10 @@ const showData=()=>{
 
     })
 }
+
 module.exports={
     addPerson,
     deleteData,
     readData,
-    showData
+    showData,
 }

@@ -1,4 +1,3 @@
-
 const  yargs=require("yargs")
 const studentData=require("./studentData")
  
@@ -31,10 +30,14 @@ yargs.command({
             demandOption:true,
             type:"string"
         },
-      
+        grades: {
+            describe: 'adding grades',
+            demandOption: true,
+            type: "array",
+        }
     },
     handler:(x)=>{
-        studentData.addPerson(x.id,x.fname,x.lname,x.city,x.age)
+        studentData.addPerson(x.id,x.fname,x.lname,x.city,x.age,x.grades)
     }
 })
 
